@@ -1,0 +1,19 @@
+.title{text-align:center;}
+.day{text-align:center;}
+.myday{text-align:center;}
+body{
+	margin: 0px;
+}
+#container{
+	width: 100%;
+	height: 600px;
+}
+
+#heading{
+	width: 100%;
+	height: 25%;
+}
+#content_menu{
+	width: 100%;
+	height: 50%;
+}

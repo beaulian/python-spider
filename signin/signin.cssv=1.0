@@ -1,0 +1,99 @@
+.cet .brand {
+    margin: 40px 0;
+}
+.cet .brand .brand-icon {
+    vertical-align: bottom;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgb(190, 233, 146);
+    background: -moz-linear-gradient(90deg, rgb(190, 233, 146) 30%, rgb(155, 222, 144) 70%);
+    background: -webkit-linear-gradient(90deg, rgb(190, 233, 146) 30%, rgb(155, 222, 144) 70%);
+    background: -o-linear-gradient(90deg, rgb(190, 233, 146) 30%, rgb(155, 222, 144) 70%);
+    background: -ms-linear-gradient(90deg, rgb(190, 233, 146) 30%, rgb(155, 222, 144) 70%);
+    background: linear-gradient(180deg, rgb(190, 233, 146) 30%, rgb(155, 222, 144) 70%);
+}
+.cet .brand .brand-icon i {
+    color: #fff;
+    font-size: 30px;
+}
+.cet .brand .brand-text {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 28px;
+}
+.cet .instruction {
+    color: #999;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.cet .form {
+    margin: 0 30px;
+}
+.cet .form .form-group{
+	margin-bottom: 10px;
+}
+.cet .form .input-group-addon i{
+	width: 12px;
+}
+.cet .form .input-group-addon{
+	background:#666;
+    color:#fff;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+.cet .form .input-group-addon.valid{
+	background:#52B459;
+    color:#fff;
+}
+.cet .form button{
+	margin-top: 30px;
+}
+.cet .copyright{
+    margin-top:30px;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	color: #999;
+}
+.cet .result .res-name{
+	font-size: 18px;
+	font-weight: 600;
+}
+.cet .result .res-name small{
+	font-size: 12px;
+	font-weight: normal;
+	margin-left: 6px;
+	margin-top: 8px;
+	display: block;
+}
+.cet .result .res-score{
+	margin: 10px auto;
+	width: 200px;
+	padding-top: 10px;
+	border-top:solid 1px #ccc;
+}
+.cet .result p{
+	margin:4px 0;
+	text-align: left;
+}
+.cet .result p span{
+	display: inline-block;
+	width: 100px;
+	margin-right: 6px;
+	text-align: right;
+	font-weight: 600;
+}
+.loader{
+	position: fixed;
+	top:40px;
+	left:50%;
+	margin-left:-45px; 
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	background: rgba(0,0,0,0.7);
+	border-radius:4px;
+}
