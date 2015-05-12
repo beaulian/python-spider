@@ -3,6 +3,9 @@ var global_week;
 var global_day;
 var global_subject;
 var global_address;
+var global_section;
+var bool = new Array();
+for (var i=1; i<=6; i++)bool[i] = false;
 var now = new Date();
 var global_year = now.getFullYear();
 var global_month = now.getMonth()+1;
@@ -115,7 +118,7 @@ function mkebiao(global){
 					flag_teacher.push(global.任课教师[j]);
 				}
 			}
-		}else {
+		}else if (global.周次[j].indexOf("-") != -1) {
 			for (var s=parseInt(global.周次[j].split("-")[0]); s<=parseInt(global.周次[j].split("-")[1]); s++){
 				if (now_week == s) {
 					flag_section.push(global.节次[j]);
@@ -127,17 +130,36 @@ function mkebiao(global){
 						global.任课教师[j] = global.任课教师[judge_num];
 					}
 					//处理空课程名的情况
-					//if (global.任课教师[j].length == 0){global.任课教师[j] = global.任课教师[judge(j)];}
+					//flag_section.push(global.节次[j]);
 					flag_subject.push(global.课程[j]);
 					flag_address.push(global.地点[j]);
 					flag_teacher.push(global.任课教师[j]);
 				}	
 			}
 		}
+		else {
+			if (now_week == parseInt(global.周次[j])){
+				//console.log(global.课程[j])
+				//console.log(global.节次[j])
+				if (global.课程[j].length == 0){
+						//console.log(j);
+						//console.log(judge(j));
+					judge_num = judge(j);
+					global.课程[j] = global.课程[judge_num];
+					global.任课教师[j] = global.任课教师[judge_num];
+					}
+					//处理空课程名的情况
+				flag_section.push(global.节次[j]);
+				flag_subject.push(global.课程[j]);
+				flag_address.push(global.地点[j]);
+				flag_teacher.push(global.任课教师[j]);
+			}
+		}
 	}
 	//console.log(flag_subject)
+	//console.log(flag_section)
 	//to judge what subject is this day
-	var num_json = {"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7}
+	var num_json = {"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"日":7}
 	var this_day_section = new Array();
 	var this_day_subject = new Array();
 	var this_day_address = new Array();
@@ -152,7 +174,8 @@ function mkebiao(global){
 	for (var w=0; w<what_week.length; w++){
 		//console.log(now_day)
 		//console.log(num_json[what_week[w]])
-		if (now_day == num_json[what_week[w]]){
+		//console.log(global_day);
+		if (global_day == num_json[what_week[w]]){
 			this_day_section.push(flag_section[w]);
 			//console.log(this_day_jie)
 			this_day_subject.push(flag_subject[w]);
@@ -162,18 +185,22 @@ function mkebiao(global){
 	}
 	global_subject = this_day_subject.slice(0);
 	global_address = this_day_address.slice(0);
-	//console.log(this_day_subject);
+	global_section = this_day_section.slice(0);
+	//console.log(this_day_subject)
+	//console.log(this_day_section)
 	//var judge_order = new Array();
 	for (var x=0; x<this_day_section.length; x++){
 		this_day_section[x] = this_day_section[x].split("[")[1].split("]")[0];
 		//console.log(this_day_jie);
 		left_num = this_day_section[x].split("-")[0];
 		right_num = this_day_section[x].split("-")[1].split("节")[0];
+		//console.log(right_num)
 		//判断课程节数大于2的情况
 		if (right_num - left_num >= 2){
 			order1 = (parseInt(left_num)+1)/2;
 			order2 = (parseInt(left_num)+3)/2;
-			
+			bool[order1] = true;
+			bool[order2] = true;
 			$("td.subject" + order1).append(this_day_subject[x].split("]")[1])
 			$("td.address" + order1).append(this_day_address[x])
 			$("td.teacher" + order1).append(this_day_teacher[x])
@@ -184,29 +211,40 @@ function mkebiao(global){
 		else{
 			switch (parseInt(right_num)) {
 			case 2:
+			bool[1] = true
 				$("td.subject" + 1).append(this_day_subject[x].split("]")[1])
 				$("td.address" + 1).append(this_day_address[x])
 				$("td.teacher" + 1).append(this_day_teacher[x])
 				break;
 			case 4:
+				bool[2] = true
 				$("td.subject" + 2).append(this_day_subject[x].split("]")[1])
 				$("td.address" + 2).append(this_day_address[x])
 				$("td.teacher" + 2).append(this_day_teacher[x])
 				break;
 			case 6:
+				bool[3] = true
 				$("td.subject" + 3).append(this_day_subject[x].split("]")[1])
 				$("td.address" + 3).append(this_day_address[x])
 				$("td.teacher" + 3).append(this_day_teacher[x])
 				break;
 			case 8:
+				bool[4] = true
 				$("td.subject" + 4).append(this_day_subject[x].split("]")[1])
 				$("td.address" + 4).append(this_day_address[x])
 				$("td.teacher" + 4).append(this_day_teacher[x])
 				break;
-			default:
+			case 10:
+				bool[5] = true
 				$("td.subject" + 5).append(this_day_subject[x].split("]")[1])
 				$("td.address" + 5).append(this_day_address[x])
 				$("td.teacher" + 5).append(this_day_teacher[x])
+				break;
+			default:
+				bool[6] = true
+				$("td.subject" + 6).append(this_day_subject[x].split("]")[1])
+				$("td.address" + 6).append(this_day_address[x])
+				$("td.teacher" + 6).append(this_day_teacher[x])
 				break;
 			}
 		}
@@ -215,6 +253,8 @@ function mkebiao(global){
 }
 //处理实验课表
 function skebiao(sglobal) {
+	//var s = $("td.myday").val();
+	//console.log(s)
 	var num_json = {"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"日":7}
 	var this_day_jie = new Array();
 	var this_day_subject = new Array();
@@ -238,6 +278,9 @@ function skebiao(sglobal) {
 				//console.log(global_subject);
 				right_section_order_string = scheduleData[i].ds.split("-")[1].split("]")[0]
 				for(var s=0; s<global_address.length; s++){
+					//console.log(global_section[s])
+					//console.log(scheduleData[i].ds)
+					//if (global_section[s].indexOf(scheduleData[i].ds))
 					//console.log(scheduleData[i].cn);
 					if (global_subject[s].indexOf(scheduleData[i].cn) != -1){
 						if (global_address[s].indexOf(scheduleData[i].l) != -1)break;
@@ -252,19 +295,42 @@ function skebiao(sglobal) {
 						var sorder = (parseInt(left_section_order_string)+1)/2;
 						//console.log(sorder);
 						var sorder2 = sorder+1;
-						$("td.subject" + sorder).append(scheduleData[i].cn)
-						$("td.address" + sorder).append(scheduleData[i].l)
-						$("td.teacher" + sorder).append(scheduleData[i].tn)
-						$("td.subject" + sorder2).append(scheduleData[i].cn)
-						$("td.address" + sorder2).append(scheduleData[i].l)
-						$("td.teacher" + sorder2).append(scheduleData[i].tn)
+						if (bool[sorder] == false){
+							$("td.subject" + sorder).append(scheduleData[i].cn)
+							$("td.address" + sorder).append(scheduleData[i].l)
+							$("td.teacher" + sorder).append(scheduleData[i].tn)
+						}else{
+							$("td.subject" + sorder).append("<br />"+scheduleData[i].cn)
+							$("td.address" + sorder).append("<br />"+scheduleData[i].l)
+							$("td.teacher" + sorder).append("<br />"+scheduleData[i].tn)
+						}
+						if (bool[sorder2] == false){
+							$("td.subject" + sorder2).append(scheduleData[i].cn)
+							$("td.address" + sorder2).append(scheduleData[i].l)
+							$("td.teacher" + sorder2).append(scheduleData[i].tn)
+						}else {
+							$("td.subject" + sorder2).append("<br />"+scheduleData[i].cn)
+							$("td.address" + sorder2).append("<br />"+scheduleData[i].l)
+							$("td.teacher" + sorder2).append("<br />"+scheduleData[i].tn)
+						}	
+						
 					}
 					else{
 						//console.log(section_order_int);
+						
 						section_order_int = parseInt(right_section_order_string)/2;
-						$("td.subject" + section_order_int).append(scheduleData[i].cn)
-						$("td.address" + section_order_int).append(scheduleData[i].l)
-						$("td.teacher" + section_order_int).append(scheduleData[i].tn)
+						if (bool[section_order_int] == false){
+							//console.log(section_order_int)
+							$("td.subject" + section_order_int).append(scheduleData[i].cn)
+							$("td.address" + section_order_int).append(scheduleData[i].l)
+							$("td.teacher" + section_order_int).append(scheduleData[i].tn)
+						}else {
+							//console.log(section_order_int)
+							$("td.subject" + section_order_int).append("<br />"+scheduleData[i].cn)
+							$("td.address" + section_order_int).append("<br />"+scheduleData[i].l)
+							$("td.teacher" + section_order_int).append("<br />"+scheduleData[i].tn)
+						}
+						
 					}
 					
 				}

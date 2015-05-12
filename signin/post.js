@@ -19,11 +19,21 @@ $(document).ready(function() {
 		        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
 		            var res = JSON.parse(xhr.responseText);
 		            //alert(xhr.responseText);
+
 		            global = res.mkebiao;
 		            sglobal = res.skebiao;
 		            gglobal = res.gkebiao;
-		      
-		         	kebiao();
+		      		if (sglobal == "{}"){
+		      			document.getElementById("container").setAttribute("style","display:none");
+		      			document.write("<div align='center'><p style='text-align:center'>亲,你学号输错了哦,请重新输入!</p></div>")
+		      		}
+		      		else if (global.序号.length == 0 && global.节次.length == 0){
+		      			document.getElementById("container").setAttribute("style","display:none");
+		      			document.write("<div align='center'><p style='text-align:center'>亲,你密码输错了哦,请重新输入!</p></div>")
+		      		}
+		      		else {
+		      			kebiao();
+		      		}
 		            //console.log(global)
 		            if (res.errcode && res.errcode == 1) {
 		                alert('Something wrong! Try again later');
