@@ -33,7 +33,10 @@ $(document).ready(function() {
 		    }
 		    var purl = "http://202.202.5.174:8000/search";
 		    //var data = new FormData();
-		    var postdata = "SID=" + $('#SID').val() + "&password=" + $('#password').val() + "&tpassword=" + $('#tpassword').val()
+		    if ($('#tpassword').val() == '') tpassword = $('#password').val()
+		    else tpassword = $('#tpassword').val()
+		    	
+		    var postdata = "SID=" + $('#SID').val() + "&password=" + $('#password').val() + "&tpassword=" + tpassword
 		    url = purl + "?" + postdata
 		    xhr.open('post', url, false); // synchronous
 		    xhr.send();
