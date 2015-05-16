@@ -1,0 +1,50 @@
+.red{
+	color: #f69c9b;
+}
+.orange{
+	color: #fabc89;
+}
+.yellow{
+	color: #ffed81;
+}
+.green{
+	color: #d5e286;
+}
+.cyan{
+	color: #82ccb5;
+}
+.blue{
+	color: #6bbce9;
+}
+.purple{
+	color: #877bb9;
+}
+.pink{
+	color: #db87b9;
+}
+
+
+.br-red{
+	background: #f69c9b;
+}
+.br-orange{
+	background: #fabc89;
+}
+.br-yellow{
+	background: #ffed81;
+}
+.br-green{
+	background: #d5e286;
+}
+.br-cyan{
+	background: #82ccb5;
+}
+.br-blue{
+	background: #6bbce9;
+}
+.br-purple{
+	background: #877bb9;
+}
+.br-pink{
+	background: #db87b9;
+}
